@@ -7,8 +7,8 @@ public class PrecipitationDbContext: DbContext{
     
     public DbSet<Precipitation> Precipitation { get; set;}
 
-    override protected void OnModelCreating(ModelBuilder builder){
-        base.OnModelCreating();
+     protected override void OnModelCreating(ModelBuilder builder){
+        base.OnModelCreating(builder);
         SnakeCaseIdentityTableName(builder);
     }
 

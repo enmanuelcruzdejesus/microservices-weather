@@ -1,10 +1,18 @@
+using CloudWeather.Precipitation.DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<PrecipitationDbContext>(opts =>{
+    opts.EnableSensitiveDataLogging();
+    opts.EnableDetailedErrors();
+     opts.UseNpgsql("name=ConnectionStrings:DefaultConnection");
+},ServiceLifetime.Transient);
+
+
 var app = builder.Build();
 
-builder.Services.AddDbContext<PrecipitationDbContext>()
 
 
 app.MapGet("/observations/{zip}",(string zip, [FromQuery] int? days, PrecipitationDbContext context )=>{
